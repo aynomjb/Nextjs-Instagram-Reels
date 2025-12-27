@@ -1,5 +1,8 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+![WhatsApp Image 2025-12-27 at 11 54 14 AM](https://github.com/user-attachments/assets/6d266276-44ac-4cee-a721-f41311c4abbb)
+
+
 ## Getting Started
 
 First, run the development server:
