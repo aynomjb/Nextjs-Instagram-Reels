@@ -143,6 +143,24 @@ export default function ReelItem({
         ❤️
       </div>
 
+      <div className="left-stack">
+        {/* Profile row */}
+        <div className="profile-info">
+          <img src="avatars/user1.jpg" className="profile-avatar" />
+
+          <div className="profile-text">
+            <div className="username-row">
+              <span className="profile-name">@{username}</span>
+              <button className="follow-btn">Follow</button>
+            </div>
+
+            <div className="music-marquee">
+              <span>🎵 {music}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Right Side Overlay */}
       <div className="overlay">
         <button className="action-btn" onClick={toggleLike} >
