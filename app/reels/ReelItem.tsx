@@ -18,9 +18,30 @@ export default function ReelItem({
 }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [muted, setMuted] = useState(true);
+
+  /* ---------- Auto Play / Pause ---------- */
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!videoRef.current) return;
+        if (entry.isIntersecting) {
+          videoRef.current.play();
+        } else {
+          videoRef.current.pause();
+          setMuted(true); // 🔥 important
+        }
+      },
+      { threshold: 0.75 }
+    );
+
+    if (videoRef.current) observer.observe(videoRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+
   return (
     <div className="reel" >
-      
+
       {/* Video */}
       <video
         ref={videoRef}
