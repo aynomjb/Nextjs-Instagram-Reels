@@ -201,3 +201,38 @@ body {
   from { transform: translateX(0); }
   to { transform: translateX(-100%); }
 }
+
+
+
+/* Liked by row */
+.liked-by-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+  font-size: 13px;
+  opacity: 0.95;
+}
+
+/* Overlapping avatars */
+.liked-avatars {
+  display: flex;
+}
+
+.liked-avatars img {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1.5px solid black;
+  object-fit: cover;
+  margin-left: -6px;
+}
+
+.liked-avatars img:first-child {
+  margin-left: 0;
+}
+
+/* Text */
+.liked-by-text strong {
+  font-weight: 600;
+}

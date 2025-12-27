@@ -159,6 +159,23 @@ export default function ReelItem({
             </div>
           </div>
         </div>
+
+        {/* Caption */}
+        <p className="caption">{caption}</p>
+
+        {/* Liked by */}
+        <div className="liked-by-row">
+          <div className="liked-avatars">
+            <img src="/avatars/user1.jpg" />
+            {/* <img src="/avatar2.png" />
+            <img src="/avatar3.png" /> */}
+          </div>
+
+          <p className="liked-by-text">
+            Liked by <strong>this user</strong> and{" "}
+            <strong>{likes.toLocaleString()}</strong> others
+          </p>
+        </div>
       </div>
 
       {/* Right Side Overlay */}
