@@ -22,6 +22,25 @@ export default function ReelItem({
   const [liked, setLiked] = useState(false);
   const [likes, setLikes] = useState(1200);
 
+    /* ---------- Like (Optimistic UI) ---------- */
+  const toggleLike = async () => {
+    const prevLiked = liked;
+
+    setLiked(!prevLiked);
+    setLikes((l) => (prevLiked ? l - 1 : l + 1));
+
+    try {
+      await fetch(`/api/reels/${reelId}/like`, {
+        method: "POST",
+      });
+    } catch {
+      // rollback if API fails
+      setLiked(prevLiked);
+      setLikes((l) => (prevLiked ? l + 1 : l - 1));
+    }
+
+  };
+
   /* ---------- Auto Play / Pause ---------- */
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -58,7 +77,7 @@ export default function ReelItem({
 
       {/* Right Side Overlay */}
       <div className="overlay">
-        <button className="action-btn" >
+        <button className="action-btn" onClick={toggleLike} >
           <span className={liked ? "liked" : ""}>❤️</span>
           <p>{likes}</p>
         </button>
