@@ -111,6 +111,7 @@ export default function ReelItem({
         if (!videoRef.current) return;
         if (entry.isIntersecting) {
           videoRef.current.play();
+          setMuted(false)
         } else {
           videoRef.current.pause();
           setMuted(true); // 🔥 important
@@ -143,6 +144,11 @@ export default function ReelItem({
     if (now - lastTap.current < 300) {
       if (!liked) toggleLike();
       showHeart();
+    }
+
+    // Single tap → toggle sound
+    else {
+      setMuted(false);
     }
 
 
