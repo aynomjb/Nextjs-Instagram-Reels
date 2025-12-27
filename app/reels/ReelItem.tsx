@@ -22,7 +22,10 @@ export default function ReelItem({
   const [liked, setLiked] = useState(false);
   const [likes, setLikes] = useState(1200);
 
-    /* ---------- Like (Optimistic UI) ---------- */
+  const lastTap = useRef(0);
+  const heartRef = useRef<HTMLDivElement>(null);
+
+  /* ---------- Like (Optimistic UI) ---------- */
   const toggleLike = async () => {
     const prevLiked = liked;
 
@@ -61,8 +64,37 @@ export default function ReelItem({
   }, []);
 
 
+  /* ---------- Heart Animation ---------- */
+  const showHeart = () => {
+    if (!heartRef.current) return;
+    heartRef.current.classList.add("show");
+    setTimeout(
+      () => heartRef.current?.classList.remove("show"),
+      700
+    );
+  };
+
+  /* ---------- Double Tap Detection ---------- */
+  const handleTap = () => {
+
+    const now = Date.now();
+
+    // Double tap → like
+    if (now - lastTap.current < 300) {
+      if (!liked) toggleLike();
+      showHeart();
+    }
+
+
+    lastTap.current = now;
+
+
+  };
+
+
+
   return (
-    <div className="reel" >
+    <div className="reel" onClick={handleTap}>
 
       {/* Video */}
       <video
@@ -74,6 +106,11 @@ export default function ReelItem({
         preload="metadata"
         className="reel-video"
       />
+
+      {/* Heart Animation */}
+      <div ref={heartRef} className="heart-animate">
+        ❤️
+      </div>
 
       {/* Right Side Overlay */}
       <div className="overlay">
