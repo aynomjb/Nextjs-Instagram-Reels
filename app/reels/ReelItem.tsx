@@ -2,6 +2,35 @@
 
 import { useEffect, useRef, useState } from "react";
 
+
+/* ---------------- Comment Bottom Sheet ---------------- */
+function CommentSheet({
+  open,
+  onClose,
+}: {
+  open: boolean;
+  onClose: () => void;
+}) {
+  if (!open) return null;
+
+  return (
+    <div className="sheet-backdrop" onClick={onClose}>
+      <div className="sheet" onClick={(e) => e.stopPropagation()}>
+        <h3>Comments</h3>
+
+        <div className="comments">
+          <p>No comments yet</p>
+        </div>
+
+        <input
+          className="comment-input"
+          placeholder="Add a comment..."
+        />
+      </div>
+    </div>
+  );
+}
+
 /* ---------------- Reel Item ---------------- */
 export default function ReelItem({
   src,
@@ -24,6 +53,8 @@ export default function ReelItem({
 
   const lastTap = useRef(0);
   const heartRef = useRef<HTMLDivElement>(null);
+
+  const [openComments, setOpenComments] = useState(false);
 
   /* ---------- Like (Optimistic UI) ---------- */
   const toggleLike = async () => {
@@ -121,6 +152,7 @@ export default function ReelItem({
 
         <button
           className="action-btn"
+          onClick={() => setOpenComments(true)}
         >
           💬
           <p>210</p>
@@ -131,6 +163,12 @@ export default function ReelItem({
           <p>Share</p>
         </button>
       </div>
+
+      {/* Comment Sheet */}
+      <CommentSheet
+        open={openComments}
+        onClose={() => setOpenComments(false)}
+      />
 
     </div>
   );
