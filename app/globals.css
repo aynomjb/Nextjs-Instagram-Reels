@@ -36,3 +36,40 @@ body {
   height: 100%;
   object-fit: cover;
 }
+
+
+/* Overlay */
+.overlay {
+  position: absolute;
+  right: 12px;
+  bottom: 90px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
+.action-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 26px;
+  cursor: pointer;
+}
+
+.action-btn p {
+  margin: 4px 0 0;
+  font-size: 12px;
+}
+
+/* Like animation */
+.liked {
+  color: red;
+  animation: pop 0.2s ease;
+}
+
+@keyframes pop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.3); }
+  100% { transform: scale(1); }
+}

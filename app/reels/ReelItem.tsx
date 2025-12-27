@@ -19,6 +19,9 @@ export default function ReelItem({
   const videoRef = useRef<HTMLVideoElement>(null);
   const [muted, setMuted] = useState(true);
 
+  const [liked, setLiked] = useState(false);
+  const [likes, setLikes] = useState(1200);
+
   /* ---------- Auto Play / Pause ---------- */
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -52,6 +55,26 @@ export default function ReelItem({
         preload="metadata"
         className="reel-video"
       />
+
+      {/* Right Side Overlay */}
+      <div className="overlay">
+        <button className="action-btn" >
+          <span className={liked ? "liked" : ""}>❤️</span>
+          <p>{likes}</p>
+        </button>
+
+        <button
+          className="action-btn"
+        >
+          💬
+          <p>210</p>
+        </button>
+
+        <button className="action-btn">
+          🔗
+          <p>Share</p>
+        </button>
+      </div>
 
     </div>
   );
