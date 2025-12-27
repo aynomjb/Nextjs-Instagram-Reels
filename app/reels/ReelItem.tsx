@@ -56,6 +56,35 @@ export default function ReelItem({
 
   const [openComments, setOpenComments] = useState(false);
 
+  const [progress, setProgress] = useState(0);
+  const [seeking, setSeeking] = useState(false);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const updateProgress = () => {
+      if (!seeking) {
+        setProgress((video.currentTime / video.duration) * 100 || 0);
+      }
+    };
+
+    video.addEventListener("timeupdate", updateProgress);
+    return () => video.removeEventListener("timeupdate", updateProgress);
+  }, [seeking]);
+
+
+  const handleSeek = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const value = Number(e.target.value);
+    const time = (value / 100) * video.duration;
+
+    video.currentTime = time;
+    setProgress(value);
+  };
+
   /* ---------- Like (Optimistic UI) ---------- */
   const toggleLike = async () => {
     const prevLiked = liked;
@@ -203,6 +232,20 @@ export default function ReelItem({
       <CommentSheet
         open={openComments}
         onClose={() => setOpenComments(false)}
+      />
+
+      <input
+        type="range"
+        min="0"
+        max="100"
+        value={progress}
+        className="video-progress"
+        style={{ "--progress": `${progress}%` } as React.CSSProperties}
+        onMouseDown={() => setSeeking(true)}
+        onMouseUp={() => setSeeking(false)}
+        onTouchStart={() => setSeeking(true)}
+        onTouchEnd={() => setSeeking(false)}
+        onChange={handleSeek}
       />
 
     </div>
