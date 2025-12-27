@@ -16,5 +16,22 @@ export default function ReelItem({
   caption?: string;
   music?: string;
 }) {
-  return (<></>)
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [muted, setMuted] = useState(true);
+  return (
+    <div className="reel" >
+      
+      {/* Video */}
+      <video
+        ref={videoRef}
+        src={src}
+        muted={muted}
+        loop
+        playsInline
+        preload="metadata"
+        className="reel-video"
+      />
+
+    </div>
+  );
 }
